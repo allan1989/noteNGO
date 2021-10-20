@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NoteService } from '../../services/note.service';
 
 @Component({
   selector: 'app-home',
@@ -7,9 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+  constructor(private noteService: NoteService) {}
 
   ngOnInit(): void {
+    this.noteService.checkIfLocalStorageExists()
+    if(this.noteService.localStorage$.value.canUseLocalStorage) {
+      this.noteService.tata();
+    }
   }
 
 }
