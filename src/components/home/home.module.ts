@@ -5,7 +5,7 @@ import { HomeComponent } from 'src/components/home/home.component';
 import { NotePreviewComponent } from 'src/components/note-preview/note-preview.component';
 import { NoteFullComponent } from 'src/components/note-full/note-full.component';
 import { NotFoundComponent } from 'src/components/not-found/not-found.component';
-
+import { BrowserModule } from '@angular/platform-browser';
 
 
 @NgModule({
@@ -13,9 +13,9 @@ import { NotFoundComponent } from 'src/components/not-found/not-found.component'
     HomeComponent,
     NotePreviewComponent,
     NoteFullComponent,
-    NotFoundComponent
+    NotFoundComponent,
   ],
-  imports: [RouterModule],
+  imports: [RouterModule, BrowserModule],
   exports: [HomeRoutingModule, HomeComponent]
 })
 

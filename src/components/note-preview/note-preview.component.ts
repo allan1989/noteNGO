@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
+
 @Component({
   selector: 'app-note-preview',
   templateUrl: './note-preview.component.html',
@@ -10,6 +11,8 @@ export class NotePreviewComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+
+    // https://angular-training-guide.rangle.io/routing/routeparams
   }
 
 }
