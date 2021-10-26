@@ -23,9 +23,8 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     this.noteService.checkIfLocalStorageExists();
     if(this.noteService.localStorage$.value.canUseLocalStorage) {
-      this.noteService.tata();
+      this.noteService.loadFakeJSON();
     }
-    console.log(this.noteService.calculateQuantity())
   }
 
 }

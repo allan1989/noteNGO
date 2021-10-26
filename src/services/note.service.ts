@@ -1,16 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-
-interface INote {
-  title: string,
-  priority: string,
-  date: string,
-  body: string
-}
-
-interface ICount {
-  [key: string]: any
-}
+import { INote } from './note.model';
 
 @Injectable({
   providedIn: 'root'
@@ -18,15 +8,6 @@ interface ICount {
 export class NoteService {
 
   constructor() { }
-
-  enum = {
-    HAUTE: 'Haute',
-    ELEVEE: 'Elevée',
-    MOYENNE: 'Moyenne',
-    BASSE: 'Basse'
-  }
-
-  count: any[] = []
 
   state = {
     canUseLocalStorage: <boolean> false,
@@ -38,22 +19,46 @@ export class NoteService {
 
    obj:INote[] = [
     {
+      id: 1,
       title : "title 1",
       priority : "haute",
-      date: '2007/02/30',
-      body: 'lorem lorem lorem'
+      body: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit'
     },
     {
+      id: 2,
       title : "title 2",
       priority : "moyenne",
-      date: '2004/02/30',
-      body: 'lorem zeze imspum'
+      body: 'Etiam rutrum accumsan odio, eget semper orci varius nec'
     },
     {
+      id: 3,
       title : "title 3",
       priority : "basse",
-      date: '2007/09/30',
-      body: 'lorem color imspum'
+      body: 'Nulla porta nec mauris quis rutrum'
+    },
+    {
+      id: 4,
+      title : "title 4",
+      priority : "haute",
+      body: 'Sed quis arcu ut erat posuere porttitor dignissim suscipit magna'
+    },
+    {
+      id: 5,
+      title : "title 5",
+      priority : "moyenne",
+      body: ' Suspendisse dignissim, quam non aliquet tincidunt, arcu ipsum ultricies felis, et eleifend velit eros sed mauris'
+    },
+    {
+      id: 6,
+      title : "title 6",
+      priority : "basse",
+      body: 'Ut sed vulputate ex, tempus laoreet augue'
+    },
+    {
+      id: 7,
+      title : "title 7",
+      priority : "basse",
+      body: 'Curabitur mattis aliquam diam quis lobortis'
     }
    ]
 
@@ -71,17 +76,7 @@ export class NoteService {
     }
   }
 
-  calculateQuantity() {
-    this.obj.forEach(el => {
-       //this.count[el.priority] = (this.count[el.priority] || 0) + 1
- 
-
-    });
-    return this.state.count;
-
-  }
-
-  tata() {
-    localStorage.setItem('notes', JSON.stringify(this.obj))
+  loadFakeJSON() {
+    this.localStorage$.next({...this.state, data: this.obj})
   }
 }

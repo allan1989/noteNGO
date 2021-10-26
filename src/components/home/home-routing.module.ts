@@ -14,7 +14,7 @@ const routes: Routes = [
         { path: ':id',
           component: NotePreviewComponent, 
           children: [
-            {path: ':idd', component: NoteFullComponent}
+            {path: ':id', component: NoteFullComponent}
           ] 
         }
       ] 
