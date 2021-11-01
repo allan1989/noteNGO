@@ -12,7 +12,7 @@ export class NoteService {
   state = {
     canUseLocalStorage: <boolean> false,
     data : <INote[]> [],
-    count: { haute: 0, elevee: 0, moyenne: 0, basse: 0} 
+    selected: null
   }
 
   localStorage$ = new BehaviorSubject(this.state)

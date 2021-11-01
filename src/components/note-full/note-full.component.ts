@@ -29,7 +29,7 @@ export class NoteFullComponent implements OnInit, OnDestroy {
   }
 
   loadData() {
-    console.log(this.data)
+    //console.log('v', this.data[0].id)
   }
 
   ngOnDestroy() {
