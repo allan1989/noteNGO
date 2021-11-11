@@ -33,6 +33,10 @@ export class NotePreviewComponent implements OnInit, OnDestroy {
     this.selected = note.id
   }
 
+  showModalRemoveItem(id:number) {
+    this.noteService.showModalRemoveItem(id);
+  }
+
   loadData() {
     // console.log(this.selected)
     // method to detele by id

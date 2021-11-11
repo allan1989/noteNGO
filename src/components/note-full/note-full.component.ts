@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, DoCheck } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NoteService } from 'src/services/note.service';
 import { INote  } from 'src/services/note.model';
@@ -9,7 +9,7 @@ import { Subscription } from 'rxjs';
   templateUrl: './note-full.component.html',
   styleUrls: ['./note-full.component.scss']
 })
-export class NoteFullComponent implements OnInit, OnDestroy {
+export class NoteFullComponent implements OnInit, OnDestroy, DoCheck {
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -25,11 +25,15 @@ export class NoteFullComponent implements OnInit, OnDestroy {
         note => note.id === +params.id
       )
     )
-    this.loadData()
+    
+  }
+
+  ngDoCheck() {
+    console.log('full note', this.data)
   }
 
   loadData() {
-    //console.log('v', this.data[0].id)
+    console.log('full note', this.data[0].id)
   }
 
   ngOnDestroy() {

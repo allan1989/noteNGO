@@ -1,2 +1,5 @@
 <app-header></app-header>
 <router-outlet></router-outlet>
+<app-modal-remove-note 
+  *ngIf='isModalRemoveItemOpen'
+  [test]=" 'toto' "></app-modal-remove-note>

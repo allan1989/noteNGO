@@ -12,7 +12,8 @@ export class NoteService {
   state = {
     canUseLocalStorage: <boolean> false,
     data : <INote[]> [],
-    selected: null
+    isModalRemoveItemOpen: false,
+    currentNoteId: <number> 0
   }
 
   localStorage$ = new BehaviorSubject(this.state)
@@ -78,5 +79,35 @@ export class NoteService {
 
   loadFakeJSON() {
     this.localStorage$.next({...this.state, data: this.obj})
+  }
+
+  // https://nevyan.blogspot.com/2019/11/store-state-management-with-rxjs.html
+
+  // https://blog.angular-university.io/how-to-build-angular2-apps-using-rxjs-observable-data-services-pitfalls-to-avoid/
+
+ // https://stackoverflow.com/questions/56574381/behaviorsubject-partial-change-does-not-trigger-subscription
+
+ // https://stackoverflow.com/questions/41268671/rxjs-observe-an-object/41270535#41270535
+
+  showModalRemoveItem(id:number) {
+    console.log(this.state)
+    const value = this.state.currentNoteId;
+    this.state.currentNoteId = id;
+    this.state.isModalRemoveItemOpen = true,
+
+
+    this.localStorage$.next(
+      this.state
+     
+    );
+    console.log(this.state)
+  }
+
+  hideModalRemoveItem() {
+    // console.log(this.state)
+    this.localStorage$.next({
+      ...this.state,
+      isModalRemoveItemOpen: false
+    })
   }
 }
