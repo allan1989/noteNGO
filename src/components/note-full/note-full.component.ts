@@ -21,19 +21,17 @@ export class NoteFullComponent implements OnInit, OnDestroy, DoCheck {
 
   ngOnInit(): void {
     this.sub = this.activatedRoute.params.subscribe(
-      params => this.data = this.noteService.localStorage$.value.data.filter(
+      params => this.data = this.noteService.getState().data.filter(
         note => note.id === +params.id
       )
     )
-    
   }
 
   ngDoCheck() {
-    console.log('full note', this.data)
   }
 
   loadData() {
-    console.log('full note', this.data[0].id)
+
   }
 
   ngOnDestroy() {

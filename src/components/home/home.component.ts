@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NoteService } from '../../services/note.service';
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { checkLocalStorage } from 'src/app/reducers/actions/actions';
 
 @Component({
   selector: 'app-home',
@@ -11,7 +13,8 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private noteService: NoteService,
-    public router: Router
+    public router: Router,
+    private store: Store
     ) {}
   priorities = [
     {level: 'Haute', routeName: 'haute'},
@@ -21,8 +24,11 @@ export class HomeComponent implements OnInit {
   ]
 
   ngOnInit(): void {
+    
+    this.store.dispatch(checkLocalStorage())
+
     this.noteService.checkIfLocalStorageExists();
-    if(this.noteService.localStorage$.value.canUseLocalStorage) {
+    if(this.noteService.getState().canUseLocalStorage) {
       this.noteService.loadFakeJSON();
     }
   }

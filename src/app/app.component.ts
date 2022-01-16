@@ -13,7 +13,7 @@ export class AppComponent implements OnInit{
   constructor(private noteService: NoteService) {}
 
   ngOnInit() {
-    this.noteService.localStorage$.subscribe(
+    this.noteService.subject$.subscribe(
       params => this.isModalRemoveItemOpen = params.isModalRemoveItemOpen
     )
   }

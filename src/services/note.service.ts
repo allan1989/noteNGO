@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable, of } from 'rxjs';
 import { INote } from './note.model';
 
 @Injectable({
@@ -9,14 +9,25 @@ export class NoteService {
 
   constructor() { }
 
-  state = {
+  canUseLocalStorage$: Observable<any>; 
+
+  Initialstate = {
     canUseLocalStorage: <boolean> false,
     data : <INote[]> [],
     isModalRemoveItemOpen: false,
     currentNoteId: <number> 0
   }
 
-  localStorage$ = new BehaviorSubject(this.state)
+  subject$ = new BehaviorSubject(this.Initialstate);
+  state$ = this.subject$.asObservable();
+
+  getState(){
+    return this.subject$.getValue();
+  }
+
+  setState(nextState:any){
+    this.subject$.next(nextState);
+  }
 
    obj:INote[] = [
     {
@@ -66,20 +77,34 @@ export class NoteService {
   checkIfLocalStorageExists() {
     if(typeof localStorage !== 'undefined'){
       if(localStorage.getItem('notes') !== null && localStorage.getItem('notes')?.length) {
-        this.localStorage$.next({...this.state, canUseLocalStorage: true})
+        const dataFromStorage = localStorage.getItem('notes');
+
+        this.canUseLocalStorage$ = of({
+          canUse: true,
+          data: [dataFromStorage]
+        });
+        return this.canUseLocalStorage$;
+
       }
       if(localStorage.getItem('notes') === null) {
         localStorage.setItem('notes', JSON.stringify({}))
-        this.localStorage$.next({...this.state, canUseLocalStorage: true})
+        
+        this.canUseLocalStorage$ = of({
+          canUse: true,
+          data: []
+        });
+        return this.canUseLocalStorage$;
+     
       }
-    }else {
-      alert('localStorage is needed for this application to work')
     }
+    return this.canUseLocalStorage$;
   }
 
   loadFakeJSON() {
-    this.localStorage$.next({...this.state, data: this.obj})
+    this.setState({...this.Initialstate, canUseLocalStorage: true, data: this.obj})
+
   }
+
 
   // https://nevyan.blogspot.com/2019/11/store-state-management-with-rxjs.html
 
@@ -90,24 +115,12 @@ export class NoteService {
  // https://stackoverflow.com/questions/41268671/rxjs-observe-an-object/41270535#41270535
 
   showModalRemoveItem(id:number) {
-    console.log(this.state)
-    const value = this.state.currentNoteId;
-    this.state.currentNoteId = id;
-    this.state.isModalRemoveItemOpen = true,
-
-
-    this.localStorage$.next(
-      this.state
-     
-    );
-    console.log(this.state)
+    this.setState({...this.Initialstate, canUseLocalStorage: true, data: this.obj, isModalRemoveItemOpen: true, currentNoteId: id})
+    console.log(this.getState())
   }
 
   hideModalRemoveItem() {
-    // console.log(this.state)
-    this.localStorage$.next({
-      ...this.state,
-      isModalRemoveItemOpen: false
-    })
+    this.setState({...this.Initialstate, canUseLocalStorage: true, data: this.obj,  isModalRemoveItemOpen: false})
+        console.log(this.getState())
   }
 }

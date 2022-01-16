@@ -4,7 +4,12 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from 'src/components/header/header.component';
 import { HomeModule } from 'src/components/home/home.module';
 import { ModalRemoveNoteComponent } from '../components/modal-remove-note/modal-remove-note.component';
-
+import { StoreModule } from '@ngrx/store';
+import { notesReducer, metaReducers } from './reducers';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { environment } from '../environments/environment';
+import { EffectsModule } from '@ngrx/effects';
+import { LocalStorageEffect } from './reducers/effects/effects';
 
 @NgModule({
   declarations: [
@@ -14,7 +19,10 @@ import { ModalRemoveNoteComponent } from '../components/modal-remove-note/modal-
   ],
   imports: [
     BrowserModule,
-    HomeModule
+    HomeModule,
+    StoreModule.forRoot( {notes: notesReducer }),
+    EffectsModule.forRoot([LocalStorageEffect]),
+    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production })
   ],
   providers: [],
   bootstrap: [AppComponent]
