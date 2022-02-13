@@ -28,9 +28,11 @@ export class HomeComponent implements OnInit {
     this.store.dispatch(checkLocalStorage())
 
     this.noteService.checkIfLocalStorageExists();
+    /*
     if(this.noteService.getState().canUseLocalStorage) {
       this.noteService.loadFakeJSON();
     }
+    */
   }
 
 }

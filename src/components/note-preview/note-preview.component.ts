@@ -2,7 +2,14 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NoteService } from 'src/services/note.service';
 import { INote  } from 'src/services/note.model';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
+import { Store, select } from '@ngrx/store';
+import { State } from '../../app/reducers/index'
+import { filterNotesByPriority } from 'src/app/reducers/actions/actions';
+import { selectNotes } from 'src/app/reducers/selectors/selectors';
+
+
+
 
 
 @Component({
@@ -12,37 +19,44 @@ import { Subscription } from 'rxjs';
 })
 export class NotePreviewComponent implements OnInit, OnDestroy {
 
-  constructor(
-    private activatedRoute: ActivatedRoute,
-    private noteService: NoteService
-    ) { }
-
   private sub: Subscription;
-  public data: INote[] = [];
+  data$: Observable<INote[]>;
   public selected : number;
 
+  constructor(
+    private activatedRoute: ActivatedRoute,
+    private noteService: NoteService,
+    private store: Store<State>
+    ) { }
+
+
+  
   ngOnInit(): void {
+
+
     this.sub = this.activatedRoute.params.subscribe(params => {
       this.selected = params.id;
-      this.data = this.noteService.subject$.value.data.filter(note => note.priority === params.id);
-      this.loadData();
-    });
+      this.store.dispatch(filterNotesByPriority({currentPriority: params.id}))
+    }); 
+
+    this.data$ = this.store.pipe(select(selectNotes));
+ 
   }
 
   handleSelectedNote(note:INote){
-    this.selected = note.id
+    //this.selected = note.id
   }
 
   showModalRemoveItem(id:number) {
-    this.noteService.showModalRemoveItem(id);
+    //this.noteService.showModalRemoveItem(id);
   }
 
-  loadData() {
 
-  }
 
   ngOnDestroy() {
     this.sub.unsubscribe()
   }
+
+  // https://timdeschryver.dev/blog/parameterized-selectors#what-about-using-global-store-state
 
 }

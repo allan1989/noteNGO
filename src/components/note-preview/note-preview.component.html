@@ -1,10 +1,10 @@
 <div class="row">
   <div class="col-4">
     <p>note-preview works!</p>
-    <div *ngIf='data.length === 0'>
+    <div *ngIf=' (data$ | async )?.length === 0'>
       Aucune note avec cette priorité. 
     </div>
-    <ng-container *ngFor='let d of data'>
+    <ng-container *ngFor='let d of data$ | async '>
       <div 
       [ngClass]="{'bg-info': d.id === this.selected}"
       class="p-2 border d-flex justify-content-between mb-1">

@@ -19,7 +19,7 @@ export class ModalRemoveNoteComponent implements OnInit {
   }
 
   hideModalRemoveItem() {
-    this.noteService.hideModalRemoveItem()
+    //this.noteService.hideModalRemoveItem()
   }
 
 }
