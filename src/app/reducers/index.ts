@@ -8,20 +8,17 @@ import {
   createReducer,
   on
 } from '@ngrx/store';
-import { environment } from '../../environments/environment';
 import * as actions from '../reducers/actions/actions';
 import { INote } from 'src/services/note.model';
 
 export interface State {
   canUseLocalStorage: boolean,
-  data: INote[],
-  currentPriority: string
+  notes: INote[],
 }
 
 export const Initialstate: State = {
-  currentPriority: 'haute',
   canUseLocalStorage: false,
-  data: [
+  notes: [
     {
       id: 1,
       title : "title 1",
@@ -63,6 +60,12 @@ export const Initialstate: State = {
       title : "title 7",
       priority : "basse",
       body: 'Curabitur mattis aliquam diam quis lobortis'
+    },
+    {
+      id: 8,
+      title : "title 8",
+      priority : "elevee",
+      body: 'Curabitur mattis aliquam diam quis lobortis'
     }
    ]
 }
@@ -70,10 +73,6 @@ export const Initialstate: State = {
 export const notesReducer = createReducer(
   Initialstate,
   on(actions.checkLocalStorageSuccess, (state, { canUseLocalStorage }) => ({ ...state, canUseLocalStorage  })),
-  on(actions.filterNotesByPriority, (state, {currentPriority}) => ({
-    ...state, currentPriority
-  }))
-
 )
 
 

@@ -13,7 +13,10 @@ export const checkLocalStorageError = createAction(
   '[ LOCALSTORAGE ] Error'
 );
 
-export const filterNotesByPriority = createAction(
-  '[ NOTES ] Filter by priority',
-  props<{ currentPriority: string}>()
+export const addToLocalStorage = createAction(
+  '[ LOCALSTORAGE ] Add'
+);
+
+export const addToLocalStorageSucess = createAction(
+  '[ LOCALSTORAGE ] Add Success'
 );

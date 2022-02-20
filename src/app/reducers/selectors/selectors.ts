@@ -8,8 +8,24 @@ export const selectNotesFeature = createFeatureSelector<State>(featureKey);
  
 export const selectNotes = createSelector(
   selectNotesFeature,
-  (state: State) => state.data // changer data à 'notes'
+  (state: State) => state.notes 
 );
+
+export const selectNotesByPriority = (priority: string) => 
+  createSelector(
+    selectNotes,
+    (notes) => notes.filter(note => note.priority === priority)
+  )
+
+export const selectSingleNote = (id: number) => 
+  createSelector(
+    selectNotes,
+    (notes) => notes.filter(note => note.id === id)
+  )
+
+
+
+
 //https://timdeschryver.dev/blog/common-and-easy-to-make-mistakes-when-youre-new-to-ngrx#using-effects
 
 // https://indepth.dev/posts/1456/a-journey-into-ngrx-selectors

@@ -1,37 +1,31 @@
-import { Component, OnInit, OnDestroy, DoCheck } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { NoteService } from 'src/services/note.service';
 import { INote  } from 'src/services/note.model';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
+import { Store, select } from '@ngrx/store';
+import { selectSingleNote } from 'src/app/reducers/selectors/selectors';
 
 @Component({
   selector: 'app-note-full',
   templateUrl: './note-full.component.html',
   styleUrls: ['./note-full.component.scss']
 })
-export class NoteFullComponent implements OnInit, OnDestroy, DoCheck {
+export class NoteFullComponent implements OnInit, OnDestroy {
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private noteService: NoteService
+    private store: Store
   ) { }
 
   private sub: Subscription;
-  public data: INote[];
+  public note$: Observable<INote[]>;
 
   ngOnInit(): void {
-    /*this.sub = this.activatedRoute.params.subscribe(
-      params => this.data = this.noteService.getState().data.filter(
-        note => note.id === +params.id
-      )
-    )*/
-  }
-
-  ngDoCheck() {
-  }
-
-  loadData() {
-
+    this.sub = this.activatedRoute.params.subscribe(
+      params => {
+        this.note$ = this.store.pipe(select(selectSingleNote(+params.id)))
+      }
+    )
   }
 
   ngOnDestroy() {

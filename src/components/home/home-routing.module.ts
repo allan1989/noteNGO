@@ -11,7 +11,7 @@ const routes: Routes = [
   { path: 'notes', 
       component: HomeComponent, 
       children: [
-        { path: ':id',
+        { path: ':priority',
           component: NotePreviewComponent, 
           children: [
             {path: ':id', component: NoteFullComponent}
