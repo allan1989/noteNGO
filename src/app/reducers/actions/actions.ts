@@ -20,3 +20,21 @@ export const addToLocalStorage = createAction(
 export const addToLocalStorageSucess = createAction(
   '[ LOCALSTORAGE ] Add Success'
 );
+
+export const removeNote = createAction(
+  '[ NOTES ] Remove Note' 
+);
+
+export const removeNoteSuccess = createAction(
+  '[ NOTES ] Remove Note Success' 
+);
+
+export const showRemoveNoteModal = createAction(
+  '[ REMOVE NOTE MODAL ] Show Remove Note Modal',
+  props<{ selectedNoteId: number, showRemoveNoteModal: boolean}>()
+);
+
+export const hideRemoveNoteModal = createAction(
+  '[ REMOVE NOTE MODAL ] Hide Remove Note Modal',
+  props<{ showRemoveNoteModal: boolean}>()
+)

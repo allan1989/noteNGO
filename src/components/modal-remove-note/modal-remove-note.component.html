@@ -1,10 +1,13 @@
 <div class="fixed-top modal-fullscreen bg-secondary bg-opacity-25">
   <div class="position-absolute top-50 start-50 translate-middle bg-white p-4 rounded-3">
-    <p class="text-center">Supprimer la note suivante ?</p>
-    <p style="height: 100px;overflow: hidden;"> consectetur adipiscing elit</p>
+    <ng-container *ngFor="let note of selectedNote$ | async">
+      <p class="text-center">Supprimer la note suivante ?</p>
+      <p>{{ note.title }}</p>
+      <p style="height: 100px;overflow: hidden;">{{ note.body }}</p>
+    </ng-container>
     <div class="text-center">
       <button class="btn btn-primary me-2">Supprimer</button>
-      <button class="btn btn-danger" (click)='hideModalRemoveItem()'>Annuler</button>
+      <button class="btn btn-danger" (click)='hideDeleteNoteModal()'>Annuler</button>
     </div>
   </div>
 </div>

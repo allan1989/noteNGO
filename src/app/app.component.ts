@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { NoteService } from 'src/services/note.service';
+import { Observable } from 'rxjs';
+import { Store, select } from '@ngrx/store';
+import { removeNoteModal } from './reducers/selectors/selectors';
 
 @Component({
   selector: 'app-root',
@@ -8,15 +10,11 @@ import { NoteService } from 'src/services/note.service';
 })
 export class AppComponent implements OnInit{
 
-  public isModalRemoveItemOpen: boolean;
+  public showRemoveNoteModal$: Observable<boolean>;
 
-  constructor(private noteService: NoteService) {}
+  constructor(private store: Store) {}
 
   ngOnInit() {
-    /*
-    this.noteService.subject$.subscribe(
-      params => this.isModalRemoveItemOpen = params.isModalRemoveItemOpen
-    )
-    */
+    this.showRemoveNoteModal$ = this.store.pipe(select(removeNoteModal))
   }
 } 

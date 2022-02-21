@@ -1,6 +1,9 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NoteService } from 'src/services/note.service';
 import { INote } from 'src/services/note.model';
+import { Observable } from 'rxjs';
+import { Store, select } from '@ngrx/store';
+import { selectSingleNoteForModal } from 'src/app/reducers/selectors/selectors';
 
 @Component({
   selector: 'app-modal-remove-note',
@@ -8,18 +11,16 @@ import { INote } from 'src/services/note.model';
   styleUrls: ['./modal-remove-note.component.scss']
 })
 export class ModalRemoveNoteComponent implements OnInit {
+  public selectedNote$: Observable<INote[]>;
 
-  @Input() test: string;
-  currentNote: INote[] = [];
-
-  constructor(private noteService: NoteService) { }
+  constructor(private noteService: NoteService, private store: Store) { }
 
   ngOnInit(): void {
-
+    this.selectedNote$ = this.store.pipe(select(selectSingleNoteForModal));
   }
 
-  hideModalRemoveItem() {
-    //this.noteService.hideModalRemoveItem()
+  hideDeleteNoteModal() {
+    this.noteService.hideDeleteNoteModal();
   }
 
 }

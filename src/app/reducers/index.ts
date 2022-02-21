@@ -14,10 +14,14 @@ import { INote } from 'src/services/note.model';
 export interface State {
   canUseLocalStorage: boolean,
   notes: INote[],
+  showRemoveNoteModal: boolean,
+  selectedNoteId: number
 }
 
 export const Initialstate: State = {
   canUseLocalStorage: false,
+  showRemoveNoteModal: false,
+  selectedNoteId: 0,
   notes: [
     {
       id: 1,
@@ -73,6 +77,10 @@ export const Initialstate: State = {
 export const notesReducer = createReducer(
   Initialstate,
   on(actions.checkLocalStorageSuccess, (state, { canUseLocalStorage }) => ({ ...state, canUseLocalStorage  })),
+  on(actions.showRemoveNoteModal, (state, {selectedNoteId, showRemoveNoteModal}) => ({
+    ...state, selectedNoteId, showRemoveNoteModal
+  })),
+  on(actions.hideRemoveNoteModal, (state, {showRemoveNoteModal}) => ({ ...state, showRemoveNoteModal}) )
 )
 
 
