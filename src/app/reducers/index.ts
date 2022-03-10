@@ -13,7 +13,7 @@ import { INote } from 'src/services/note.model';
 
 export interface State {
   canUseLocalStorage: boolean,
-  notes: INote[],
+  data: INote[],
   showRemoveNoteModal: boolean,
   selectedNoteId: number
 }
@@ -22,7 +22,7 @@ export const Initialstate: State = {
   canUseLocalStorage: false,
   showRemoveNoteModal: false,
   selectedNoteId: 0,
-  notes: [
+  data: [
     {
       id: 1,
       title : "title 1",
@@ -76,11 +76,14 @@ export const Initialstate: State = {
 
 export const notesReducer = createReducer(
   Initialstate,
-  on(actions.checkLocalStorageSuccess, (state, { canUseLocalStorage }) => ({ ...state, canUseLocalStorage  })),
+  on(actions.checkLocalStorageSuccess, (state, { canUseLocalStorage, data }) => ({ ...state, canUseLocalStorage, data })),
   on(actions.showRemoveNoteModal, (state, {selectedNoteId, showRemoveNoteModal}) => ({
     ...state, selectedNoteId, showRemoveNoteModal
   })),
-  on(actions.hideRemoveNoteModal, (state, {showRemoveNoteModal}) => ({ ...state, showRemoveNoteModal}) )
+  on(actions.hideRemoveNoteModal, (state, {showRemoveNoteModal}) => ({ ...state, showRemoveNoteModal}) ),
+  on(actions.removeNote, (state, {selectedNoteId}) => ({
+    ...state, data: [...state.data.filter(note => note.id !== selectedNoteId)]
+  }))
 )
 
 

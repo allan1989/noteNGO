@@ -1,4 +1,5 @@
 import { createAction, props } from "@ngrx/store";
+import { INote } from "src/services/note.model";
 
 export const checkLocalStorage = createAction(
   '[ LOCALSTORAGE ] Check'
@@ -6,7 +7,7 @@ export const checkLocalStorage = createAction(
 
 export const checkLocalStorageSuccess = createAction(
   '[ LOCALSTORAGE ] Success',
-  props<{ canUseLocalStorage: boolean, data: any}>()
+  props<{ canUseLocalStorage: boolean, data: INote[]}>()
 );
 
 export const checkLocalStorageError = createAction(
@@ -22,7 +23,8 @@ export const addToLocalStorageSucess = createAction(
 );
 
 export const removeNote = createAction(
-  '[ NOTES ] Remove Note' 
+  '[ NOTES ] Remove Note',
+  props<{ selectedNoteId: number}>() 
 );
 
 export const removeNoteSuccess = createAction(
@@ -37,4 +39,9 @@ export const showRemoveNoteModal = createAction(
 export const hideRemoveNoteModal = createAction(
   '[ REMOVE NOTE MODAL ] Hide Remove Note Modal',
   props<{ showRemoveNoteModal: boolean}>()
+)
+
+export const updateNotes = createAction(
+  '[ UPDATE NOTES ]',
+  props<{ notes: INote[] }>()
 )

@@ -4,12 +4,32 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from 'src/components/header/header.component';
 import { HomeModule } from 'src/components/home/home.module';
 import { ModalRemoveNoteComponent } from '../components/modal-remove-note/modal-remove-note.component';
-import { StoreModule } from '@ngrx/store';
+import { StoreModule, ActionReducer, MetaReducer } from '@ngrx/store';
 import { notesReducer } from './reducers';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { EffectsModule } from '@ngrx/effects';
 import { LocalStorageEffect } from './reducers/effects/effects';
+import { Initialstate } from './reducers';
+import { State } from '../app/reducers/index';
+
+// console.log all actions
+export function debug(reducer: ActionReducer<any>): ActionReducer<any> {
+  return function(state = Initialstate, action) {
+    console.log('state', state);
+    console.log('action', action);
+
+    if(state.notes) {
+      localStorage.setItem('notes', JSON.stringify(state.notes.data));
+    }
+    
+   
+ 
+    return reducer(state, action);
+  };
+}
+
+export const metaReducers: MetaReducer<any>[] = [debug];
 
 @NgModule({
   declarations: [
@@ -20,7 +40,7 @@ import { LocalStorageEffect } from './reducers/effects/effects';
   imports: [
     BrowserModule,
     HomeModule,
-    StoreModule.forRoot( {notes: notesReducer }),
+    StoreModule.forRoot( {notes: notesReducer }, {metaReducers}),
     EffectsModule.forRoot([LocalStorageEffect]),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
   ],

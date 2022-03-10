@@ -23,4 +23,8 @@ export class ModalRemoveNoteComponent implements OnInit {
     this.noteService.hideDeleteNoteModal();
   }
 
+  deleteNote(id:number) {
+    this.noteService.deleteNote(id);
+  }
+
 }

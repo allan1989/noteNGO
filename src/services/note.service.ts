@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { INote } from './note.model';
-import { showRemoveNoteModal, hideRemoveNoteModal } from 'src/app/reducers/actions/actions';
+import { showRemoveNoteModal, hideRemoveNoteModal, removeNote } from 'src/app/reducers/actions/actions';
 import { select, Store } from '@ngrx/store';
-import { State } from '../app/reducers/index'
+import { State } from '../app/reducers/index';
+import { map, tap } from 'rxjs/operators';
+
 
 @Injectable({
   providedIn: 'root'
@@ -18,12 +20,25 @@ export class NoteService {
 
 
   checkIfLocalStorageExists() {
+    const dataFromStorage = localStorage.getItem('notes');
     if(typeof localStorage !== 'undefined'){
       if(localStorage.getItem('notes') !== null && localStorage.getItem('notes')?.length) {
-        const dataFromStorage = localStorage.getItem('notes');
 
         this.canUseLocalStorage$ = of({
-          canUse: true
+          canUse: true,
+          notes: [
+          {
+            id: 8,
+            title : "title 8",
+            priority : "elevee",
+            body: 'Curabitur mattis aliquam diam quis lobortis'
+          },
+          {
+            id: 9,
+            title : "title 9",
+            priority : "elevee",
+            body: 'Curabitur mattis aliquam diam quis lobortis'
+          }]
         });
         return this.canUseLocalStorage$;
 
@@ -32,7 +47,20 @@ export class NoteService {
         localStorage.setItem('notes', JSON.stringify({}))
         
         this.canUseLocalStorage$ = of({
-          canUse: true
+          canUse: true,
+          notes: [
+          {
+            id: 8,
+            title : "title 8",
+            priority : "elevee",
+            body: 'Curabitur mattis aliquam diam quis lobortis'
+          },
+          {
+            id: 9,
+            title : "title 9",
+            priority : "elevee",
+            body: 'Curabitur mattis aliquam diam quis lobortis'
+          }]
         });
         return this.canUseLocalStorage$;
      
@@ -47,6 +75,11 @@ export class NoteService {
  
   hideDeleteNoteModal() {
     this.store.dispatch(hideRemoveNoteModal({ showRemoveNoteModal: false}));
+  }
+
+  deleteNote(id:number) {
+    this.store.dispatch(removeNote({selectedNoteId: id}));
+    this.hideDeleteNoteModal();
   }
 
 }

@@ -8,7 +8,7 @@ export const selectNotesFeature = createFeatureSelector<State>(featureKey);
  
 export const selectNotes = createSelector(
   selectNotesFeature,
-  (state: State) => state.notes 
+  (state: State) => state.data 
 );
 
 export const removeNoteModal = createSelector(
