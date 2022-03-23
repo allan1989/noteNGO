@@ -2,25 +2,33 @@ import { createSelector, createFeatureSelector, StateObservable } from "@ngrx/st
 import { INote } from "src/services/note.model";
 import { State } from "../index";
 
+// constant to get 'notes' level state object
 export const featureKey = 'notes';
 
+// access to get level state key 'notes' from global state
 export const selectNotesFeature = createFeatureSelector<State>(featureKey);
- 
+
+// get all notes from state
+// return an array of objects (INote)
 export const selectNotes = createSelector(
   selectNotesFeature,
   (state: State) => state.data 
 );
 
+// show or hide remove note modal
+// return an id
 export const removeNoteModal = createSelector(
   selectNotesFeature,
   (state: State) => state.showRemoveNoteModal
 );
 
+// return the note selected
 export const selectedNoteId = createSelector(
   selectNotesFeature,
   (state: State) => state.selectedNoteId
 )
 
+// filter notes by priority
 export const selectNotesByPriority = (priority: string) => 
   createSelector(
     selectNotes,
@@ -45,4 +53,11 @@ export const selectSingleNoteForModal = createSelector(
       return notes
     }
   }
+)
+
+// show or hide add/edit note modal
+// return a boolean
+export const addEditNoteModal = createSelector(
+  selectNotesFeature,
+  (notes) => notes.showAddEditNoteModal
 )

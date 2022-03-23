@@ -6,7 +6,7 @@ import { NotePreviewComponent } from 'src/components/note-preview/note-preview.c
 import { NoteFullComponent } from 'src/components/note-full/note-full.component';
 import { NotFoundComponent } from 'src/components/not-found/not-found.component';
 import { BrowserModule } from '@angular/platform-browser';
-
+import { ModalAddEditNoteComponent } from '../modal-add-edit-note/modal-add-edit-note.component';
 
 @NgModule({
   declarations: [
@@ -14,9 +14,10 @@ import { BrowserModule } from '@angular/platform-browser';
     NotePreviewComponent,
     NoteFullComponent,
     NotFoundComponent,
+    ModalAddEditNoteComponent
   ],
   imports: [RouterModule, BrowserModule],
-  exports: [HomeRoutingModule, HomeComponent]
+  exports: [HomeRoutingModule, HomeComponent, ModalAddEditNoteComponent]
 })
 
 export class HomeModule { }

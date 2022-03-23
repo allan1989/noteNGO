@@ -11,7 +11,6 @@ import { environment } from '../environments/environment';
 import { EffectsModule } from '@ngrx/effects';
 import { LocalStorageEffect } from './reducers/effects/effects';
 import { Initialstate } from './reducers';
-import { ModalAddEditNoteComponent } from '../components/modal-add-edit-note/modal-add-edit-note.component';
 
 // save into localStorage
 export function debug(reducer: ActionReducer<any>): ActionReducer<any> {
@@ -30,7 +29,6 @@ export const metaReducers: MetaReducer<any>[] = [debug];
     AppComponent,
     HeaderComponent,
     ModalRemoveNoteComponent,
-    ModalAddEditNoteComponent,
   ],
   imports: [
     BrowserModule,
