@@ -44,7 +44,4 @@ export class NotePreviewComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.sub.unsubscribe()
   }
-
-  // https://timdeschryver.dev/blog/parameterized-selectors#what-about-using-global-store-state
-
 }

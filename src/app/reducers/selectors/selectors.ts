@@ -45,13 +45,4 @@ export const selectSingleNoteForModal = createSelector(
       return notes
     }
   }
-
-
 )
-
-
-
-
-//https://timdeschryver.dev/blog/common-and-easy-to-make-mistakes-when-youre-new-to-ngrx#using-effects
-
-// https://indepth.dev/posts/1456/a-journey-into-ngrx-selectors

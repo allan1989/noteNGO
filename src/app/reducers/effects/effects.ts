@@ -22,8 +22,4 @@ export class LocalStorageEffect {
       ))
     )
   )
-
-
-  // https://stackoverflow.com/questions/62543201/ngrx-and-localstorage-in-combination
-
 }

@@ -1,11 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { INote } from './note.model';
 import { showRemoveNoteModal, hideRemoveNoteModal, removeNote } from 'src/app/reducers/actions/actions';
-import { select, Store } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 import { State } from '../app/reducers/index';
-import { map, tap } from 'rxjs/operators';
-
 
 @Injectable({
   providedIn: 'root'

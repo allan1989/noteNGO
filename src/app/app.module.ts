@@ -11,20 +11,14 @@ import { environment } from '../environments/environment';
 import { EffectsModule } from '@ngrx/effects';
 import { LocalStorageEffect } from './reducers/effects/effects';
 import { Initialstate } from './reducers';
-import { State } from '../app/reducers/index';
+import { ModalAddEditNoteComponent } from '../components/modal-add-edit-note/modal-add-edit-note.component';
 
-// console.log all actions
+// save into localStorage
 export function debug(reducer: ActionReducer<any>): ActionReducer<any> {
   return function(state = Initialstate, action) {
-    console.log('state', state);
-    console.log('action', action);
-
     if(state.notes) {
       localStorage.setItem('notes', JSON.stringify(state.notes.data));
     }
-    
-   
- 
     return reducer(state, action);
   };
 }
@@ -36,6 +30,7 @@ export const metaReducers: MetaReducer<any>[] = [debug];
     AppComponent,
     HeaderComponent,
     ModalRemoveNoteComponent,
+    ModalAddEditNoteComponent,
   ],
   imports: [
     BrowserModule,
