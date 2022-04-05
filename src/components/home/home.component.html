@@ -1,4 +1,17 @@
 <div>
+  <div class="container-xxl my-4" *ngIf="( hasNotes$ | async)?.length === 0">
+    <div class="row bg-warning border rounded-3">
+      <div class="col-12">
+        <div class="d-flex align-items-center">
+          <p class="mb-0 me-5 py-4 px-1">Il n'y a pas de notes!</p>
+          <button
+            (click)="showAddEditForm()" 
+            type="button" 
+            class="btn btn-outline-secondary text-white">Créer une note!</button>
+        </div>
+      </div>
+    </div>
+  </div>
   <div class="container-xxl">
     <div class="row">
       <div class="col-3">
