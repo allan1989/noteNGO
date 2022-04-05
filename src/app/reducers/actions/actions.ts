@@ -47,6 +47,6 @@ export const updateNotes = createAction(
 )
 
 export const showAddEditNoteModal = createAction(
-  '[ HIDE ADD/EDIT MODAL ]',
-  props<{ showAddEditNoteModal: boolean }>()
+  '[ ADD/EDIT NOTE MODAL ]',
+  props<{ showAddEditNoteModal: boolean, isAddMode: boolean }>()
 )

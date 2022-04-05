@@ -3,6 +3,7 @@ import { Observable, of } from 'rxjs';
 import { showRemoveNoteModal, hideRemoveNoteModal, removeNote } from 'src/app/reducers/actions/actions';
 import { Store } from '@ngrx/store';
 import { State } from '../app/reducers/index';
+import { showAddEditNoteModal } from 'src/app/reducers/actions/actions';
 
 @Injectable({
   providedIn: 'root'
@@ -77,6 +78,20 @@ export class NoteService {
   deleteNote(id:number) {
     this.store.dispatch(removeNote({selectedNoteId: id}));
     this.hideDeleteNoteModal();
+  }
+
+  showAddEditModalForUpdating() {
+    this.store.dispatch(showAddEditNoteModal({
+      showAddEditNoteModal: true,
+      isAddMode: false
+    }))
+  }
+
+  showAddEditModalForCreating() {
+    this.store.dispatch(showAddEditNoteModal({
+      showAddEditNoteModal: true,
+      isAddMode: true
+    }))
   }
 
 }

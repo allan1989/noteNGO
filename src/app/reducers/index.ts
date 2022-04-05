@@ -16,14 +16,16 @@ export interface State {
   data: INote[],
   showRemoveNoteModal: boolean,
   selectedNoteId: number,
-  showAddEditNoteModal: boolean
+  showAddEditNoteModal: boolean,
+  isAddMode: boolean
 }
 
 export const Initialstate: State = {
   canUseLocalStorage: false,
   showRemoveNoteModal: false,
   selectedNoteId: 0,
-  showAddEditNoteModal: true,
+  showAddEditNoteModal: false,
+  isAddMode: true,
   data: [
     {
       id: 1,
@@ -86,8 +88,8 @@ export const notesReducer = createReducer(
   on(actions.removeNote, (state, {selectedNoteId}) => ({
     ...state, data: [...state.data.filter(note => note.id !== selectedNoteId)]
   })),
-  on(actions.showAddEditNoteModal, (state, {showAddEditNoteModal}) => ({
-    ...state, showAddEditNoteModal
+  on(actions.showAddEditNoteModal, (state, {showAddEditNoteModal, isAddMode}) => ({
+    ...state, showAddEditNoteModal, isAddMode
   }))
 )
 

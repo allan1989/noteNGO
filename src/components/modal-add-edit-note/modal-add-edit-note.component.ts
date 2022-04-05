@@ -15,6 +15,7 @@ export class ModalAddEditNoteComponent implements OnInit {
 
   public hasNotes$: Observable<INote[]>;
   public showAddEditNoteModal$: Observable<boolean>;
+  public isAddMode: boolean = true;
 
   constructor(
     private store: Store
@@ -27,8 +28,13 @@ export class ModalAddEditNoteComponent implements OnInit {
 
   hideModal() {
       this.store.dispatch(showAddEditNoteModal(
-        { showAddEditNoteModal: false}
+        { 
+          showAddEditNoteModal: false,
+          isAddMode: true
+        }
         ))
   }
+
+  // https://jasonwatmore.com/post/2020/09/02/angular-combined-add-edit-create-update-form-example
 
 }

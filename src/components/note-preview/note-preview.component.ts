@@ -6,6 +6,7 @@ import { Observable, Subscription } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 import { State } from '../../app/reducers/index'
 import { selectNotesByPriority } from 'src/app/reducers/selectors/selectors';
+import { showAddEditNoteModal } from 'src/app/reducers/actions/actions';
 
 @Component({
   selector: 'app-note-preview',
@@ -34,7 +35,7 @@ export class NotePreviewComponent implements OnInit, OnDestroy {
   }
 
   showDeleteNoteModal(id:number) {
-    this.noteService.showDeleteNoteModal(id)
+    this.noteService.showDeleteNoteModal(id);
   }
 
   handleSelectedNote(note:INote){
@@ -43,5 +44,9 @@ export class NotePreviewComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.sub.unsubscribe()
+  }
+
+  showAddEditModal() {
+    this.noteService.showAddEditModalForUpdating();
   }
 }

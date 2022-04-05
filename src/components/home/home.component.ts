@@ -43,7 +43,8 @@ export class HomeComponent implements OnInit {
 
   showAddEditForm() {
     this.store.dispatch(showAddEditNoteModal({
-      showAddEditNoteModal: true
+      showAddEditNoteModal: true,
+      isAddMode: true
     }))
   }
 

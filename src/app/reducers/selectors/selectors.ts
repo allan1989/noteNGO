@@ -61,3 +61,6 @@ export const addEditNoteModal = createSelector(
   selectNotesFeature,
   (notes) => notes.showAddEditNoteModal
 )
+
+// When calling the modal AddEditNote
+// Setting the mode to Add or Edit
