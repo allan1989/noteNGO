@@ -28,7 +28,7 @@ export const metaReducers: MetaReducer<any>[] = [debug];
   declarations: [
     AppComponent,
     HeaderComponent,
-    ModalRemoveNoteComponent,
+    ModalRemoveNoteComponent
   ],
   imports: [
     BrowserModule,

@@ -41,12 +41,17 @@ export const hideRemoveNoteModal = createAction(
   props<{ showRemoveNoteModal: boolean}>()
 )
 
-export const updateNotes = createAction(
-  '[ UPDATE NOTES ]',
-  props<{ notes: INote[] }>()
+export const addNote = createAction(
+  '[ ADD NOTE ]',
+  props<{ note: INote }>()
 )
 
 export const showAddEditNoteModal = createAction(
   '[ ADD/EDIT NOTE MODAL ]',
   props<{ showAddEditNoteModal: boolean, isAddMode: boolean }>()
+)
+
+export const showAddEditNoteToast = createAction(
+  '[ ADD/EDIT NOTE TOAST ]',
+  props<{ showAddEditNoteToast: boolean}>()
 )

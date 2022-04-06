@@ -7,6 +7,8 @@ import { NoteFullComponent } from 'src/components/note-full/note-full.component'
 import { NotFoundComponent } from 'src/components/not-found/not-found.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { ModalAddEditNoteComponent } from '../modal-add-edit-note/modal-add-edit-note.component';
+import { ToastComponent } from '../toast/toast.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -14,9 +16,10 @@ import { ModalAddEditNoteComponent } from '../modal-add-edit-note/modal-add-edit
     NotePreviewComponent,
     NoteFullComponent,
     NotFoundComponent,
-    ModalAddEditNoteComponent
+    ModalAddEditNoteComponent,
+    ToastComponent
   ],
-  imports: [RouterModule, BrowserModule],
+  imports: [RouterModule, BrowserModule, ReactiveFormsModule],
   exports: [HomeRoutingModule, HomeComponent, ModalAddEditNoteComponent]
 })
 

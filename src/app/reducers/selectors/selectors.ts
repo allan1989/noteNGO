@@ -64,3 +64,14 @@ export const addEditNoteModal = createSelector(
 
 // When calling the modal AddEditNote
 // Setting the mode to Add or Edit
+
+export const AddEditNoteModalMode = createSelector(
+  selectNotesFeature,
+  (notes) => notes.isAddMode
+)
+
+// display toast notification
+export const showAddEditNoteToast = createSelector(
+  selectNotesFeature,
+  (notes) => notes.showAddEditNoteToast
+)

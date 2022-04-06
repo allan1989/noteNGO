@@ -1,9 +1,16 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { showRemoveNoteModal, hideRemoveNoteModal, removeNote } from 'src/app/reducers/actions/actions';
+import { 
+  showRemoveNoteModal, 
+  hideRemoveNoteModal, 
+  removeNote, 
+  addNote, 
+  showAddEditNoteModal,
+  showAddEditNoteToast 
+} from 'src/app/reducers/actions/actions';
 import { Store } from '@ngrx/store';
 import { State } from '../app/reducers/index';
-import { showAddEditNoteModal } from 'src/app/reducers/actions/actions';
+import { INote } from './note.model';
 
 @Injectable({
   providedIn: 'root'
@@ -94,4 +101,14 @@ export class NoteService {
     }))
   }
 
+  addNote(obj:INote) {
+    this.store.dispatch(addNote({note: obj}));
+    this.store.dispatch(showAddEditNoteModal({
+      showAddEditNoteModal: false,
+      isAddMode: false
+    }));
+    this.store.dispatch(showAddEditNoteToast({
+      showAddEditNoteToast: true
+    }));
+  }
 }

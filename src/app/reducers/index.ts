@@ -17,7 +17,8 @@ export interface State {
   showRemoveNoteModal: boolean,
   selectedNoteId: number,
   showAddEditNoteModal: boolean,
-  isAddMode: boolean
+  isAddMode: boolean,
+  showAddEditNoteToast: boolean
 }
 
 export const Initialstate: State = {
@@ -26,6 +27,7 @@ export const Initialstate: State = {
   selectedNoteId: 0,
   showAddEditNoteModal: false,
   isAddMode: true,
+  showAddEditNoteToast: false,
   data: [
     {
       id: 1,
@@ -90,6 +92,9 @@ export const notesReducer = createReducer(
   })),
   on(actions.showAddEditNoteModal, (state, {showAddEditNoteModal, isAddMode}) => ({
     ...state, showAddEditNoteModal, isAddMode
+  })),
+  on(actions.addNote, (state, {note}) => ({
+    ...state, data: [...state.data].concat(note)
   }))
 )
 
