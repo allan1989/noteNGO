@@ -1,9 +1,9 @@
 import { Injectable } from "@angular/core";
 import { Actions, ofType, createEffect  } from "@ngrx/effects";
-import { catchError, mergeMap, map } from 'rxjs/operators'
-import { checkLocalStorage, checkLocalStorageSuccess } from '../actions/actions';
+import { catchError, mergeMap, map, delay } from 'rxjs/operators';
+import { checkLocalStorage, checkLocalStorageSuccess, showAddEditNoteToast } from '../actions/actions';
 import { NoteService } from "src/services/note.service";
-import { EmptyError } from "rxjs";
+import { EmptyError, Observable, of } from "rxjs";
 
 @Injectable()
 export class LocalStorageEffect {

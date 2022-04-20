@@ -58,8 +58,9 @@ export class ModalAddEditNoteComponent implements OnInit {
     }else {
       let id = uuidv4();
       this.noteForm.value.id = id;
-      console.log(this.noteForm.status, this.noteForm.value);
+      //console.log(this.noteForm.status, this.noteForm.value);
       this.noteService.addNote(this.noteForm.value);
+ 
       this.noteForm.reset();
     }
 

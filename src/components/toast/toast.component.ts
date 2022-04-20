@@ -17,7 +17,6 @@ export class ToastComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.isToastVisible$ = this.store.pipe(select(showAddEditNoteToast))
+    this.isToastVisible$ = this.store.pipe(select(showAddEditNoteToast));
   }
-
 }

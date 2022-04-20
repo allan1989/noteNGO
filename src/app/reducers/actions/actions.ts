@@ -52,6 +52,9 @@ export const showAddEditNoteModal = createAction(
 )
 
 export const showAddEditNoteToast = createAction(
-  '[ ADD/EDIT NOTE TOAST ]',
-  props<{ showAddEditNoteToast: boolean}>()
+  '[ SHOW ADD/EDIT NOTE TOAST ]'
+)
+
+export const hideAddEditNoteToast = createAction(
+  '[ HIDE ADD/EDIT NOTE TOAST ]'
 )

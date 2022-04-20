@@ -95,6 +95,12 @@ export const notesReducer = createReducer(
   })),
   on(actions.addNote, (state, {note}) => ({
     ...state, data: [...state.data].concat(note)
+  })),
+  on(actions.showAddEditNoteToast, (state) => ({
+    ...state, showAddEditNoteToast: true
+  })),
+  on(actions.hideAddEditNoteToast, (state) => ({
+    ...state, showAddEditNoteToast: false
   }))
 )
 

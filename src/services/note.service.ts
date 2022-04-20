@@ -11,6 +11,7 @@ import {
 import { Store } from '@ngrx/store';
 import { State } from '../app/reducers/index';
 import { INote } from './note.model';
+import { hideAddEditNoteToast } from 'src/app/reducers/actions/actions';
 
 @Injectable({
   providedIn: 'root'
@@ -107,8 +108,7 @@ export class NoteService {
       showAddEditNoteModal: false,
       isAddMode: false
     }));
-    this.store.dispatch(showAddEditNoteToast({
-      showAddEditNoteToast: true
-    }));
+    this.store.dispatch(showAddEditNoteToast());
+    setTimeout(() => this.store.dispatch(hideAddEditNoteToast()), 5000);
   }
 }
