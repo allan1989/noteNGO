@@ -23,7 +23,7 @@ export class NoteFullComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.sub = this.activatedRoute.params.subscribe(
       params => {
-        this.note$ = this.store.pipe(select(selectSingleNote(params.id)))
+        this.note$ = this.store.pipe(select(selectSingleNote(+params.id)))
       }
     )
   }

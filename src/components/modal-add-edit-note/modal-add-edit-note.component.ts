@@ -52,15 +52,13 @@ export class ModalAddEditNoteComponent implements OnInit {
      
       this.isAddMode$.subscribe(
         mode => {
-          console.log(mode)
-          // if(!mode) {
-          //   this.patchFormFields()
-          // }else {
-          //   this.noteForm.reset()
-          // }
+          if(!mode) {
+            this.patchFormFields()
+          }else {
+            this.noteForm.reset()
+          }
         }
       )
-      
   }
 
   hideModal() {
@@ -75,7 +73,6 @@ export class ModalAddEditNoteComponent implements OnInit {
     if(this.noteForm.invalid) {
       return;
     }else {
-      console.log('creating...')
       let id = Math.floor(Math.random() * Date.now()); 
       this.noteForm.value.id = id;
       this.noteService.addNote(this.noteForm.value);
@@ -83,9 +80,6 @@ export class ModalAddEditNoteComponent implements OnInit {
   }
 
   updateNote():void {
-    return;
-    //console.log(JSON.parse(localStorage.getItem('notes')))
-    
     this.store.pipe(select(selectNotes)).subscribe(
       notes => this.currentNotes = notes
     )
@@ -109,57 +103,34 @@ export class ModalAddEditNoteComponent implements OnInit {
       }
     )
 
-    //console.log(this.currentNotes);
-    //console.log(this.currentNoteId);
-    //console.log(this.noteForm.value);
-
     this.noteService.updateNote(this.currentNotes);
   }
 
-  // patchFormFields() { 
-  //   this.currentNote.subscribe(
-  //     note => {
-  //       this.noteForm.patchValue({
-  //         body: note[0].body,
-  //         title: note[0].title,
-  //         id: note[0].id,
-  //         priority: note[0].priority
-  //       })
-  //     }
-  //   )
-  // }
-
-  getForm(){
-    return this.noteForm;
+  patchFormFields() { 
+    this.currentNote.subscribe(
+      note => {
+        this.noteForm.patchValue({
+          body: note[0]?.body,
+          title: note[0]?.title,
+          id: note[0]?.id,
+          priority: note[0]?.priority
+        })
+      }
+    )
   }
-
 
   onSubmit() {
     this.submitted = true;
-    console.log(this.noteForm.value)
-
-    // if(this.isAddMode$) {
-    //   this.createNewNote()
-    // }else {
-    //   console.log('here')
-    // }
-
-
-    // Rajouter les fontions pour la création et la modification
 
     this.isAddMode$.subscribe(
       mode => {
         if(mode) {
           this.createNewNote();
         }else {
-          //this.updateNote();
+          this.updateNote();
         }
       }
     )
-
-      
- 
-    //this.noteForm.reset();
 
   }
 
