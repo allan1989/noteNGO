@@ -1,12 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { selectNotes } from 'src/app/reducers/selectors/selectors';
-import { addEditNoteModal, AddEditNoteModalMode } from 'src/app/reducers/selectors/selectors';
+import { 
+  selectNotes, 
+  selectSingleNoteForModal, 
+  addEditNoteModal, 
+  AddEditNoteModalMode,
+  getSelectedNoteId 
+} from 'src/app/reducers/selectors/selectors';
 import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { INote } from 'src/services/note.model';
 import { showAddEditNoteModal } from 'src/app/reducers/actions/actions';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { v4 as uuidv4 } from 'uuid';
 import { NoteService } from 'src/services/note.service';
 
 @Component({
@@ -22,6 +26,10 @@ export class ModalAddEditNoteComponent implements OnInit {
 
   public noteForm!: FormGroup;
   public submitted: boolean = false;
+  public currentNote:  Observable<INote[]>;
+
+  public currentNotes: INote[];
+  public currentNoteId: number;
 
   constructor(
     private store: Store,
@@ -33,38 +41,126 @@ export class ModalAddEditNoteComponent implements OnInit {
       this.hasNotes$ = this.store.pipe(select(selectNotes));
       this.showAddEditNoteModal$ = this.store.pipe(select(addEditNoteModal));
       this.isAddMode$ = this.store.pipe(select(AddEditNoteModalMode));
+      this.currentNote = this.store.pipe(select(selectSingleNoteForModal))
 
       this.noteForm = this.formBuilder.group({
         title: ['', [Validators.required, Validators.minLength(3)]],
         body: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(250)]],
         priority: ['', [Validators.required]]
       })
+
+     
+      this.isAddMode$.subscribe(
+        mode => {
+          console.log(mode)
+          // if(!mode) {
+          //   this.patchFormFields()
+          // }else {
+          //   this.noteForm.reset()
+          // }
+        }
+      )
+      
   }
 
   hideModal() {
-      this.store.dispatch(showAddEditNoteModal(
-        { 
-          showAddEditNoteModal: false,
-          isAddMode: true
-        }
-        ))
+    this.store.dispatch(showAddEditNoteModal({ 
+        showAddEditNoteModal: false,
+        isAddMode: true
+      }
+    ));
   }
 
-  onSubmit() {
-    this.submitted = true;
-    console.log(this.noteForm)
+  createNewNote() {
     if(this.noteForm.invalid) {
       return;
     }else {
-      let id = uuidv4();
+      console.log('creating...')
+      let id = Math.floor(Math.random() * Date.now()); 
       this.noteForm.value.id = id;
-      //console.log(this.noteForm.status, this.noteForm.value);
       this.noteService.addNote(this.noteForm.value);
- 
-      this.noteForm.reset();
     }
+  }
 
+  updateNote():void {
+    return;
+    //console.log(JSON.parse(localStorage.getItem('notes')))
     
+    this.store.pipe(select(selectNotes)).subscribe(
+      notes => this.currentNotes = notes
+    )
+
+    this.store.pipe(select(getSelectedNoteId)).subscribe(
+      id => this.currentNoteId = id
+    )
+
+    this.currentNotes = this.currentNotes.map(
+      note => {
+        if(note.id === this.currentNoteId) {
+          return {
+            title: this.noteForm.value.title,
+            body: this.noteForm.value.body,
+            priority: this.noteForm.value.priority,
+            id: this.currentNoteId
+          }
+        }else{
+          return note
+        }
+      }
+    )
+
+    //console.log(this.currentNotes);
+    //console.log(this.currentNoteId);
+    //console.log(this.noteForm.value);
+
+    this.noteService.updateNote(this.currentNotes);
+  }
+
+  // patchFormFields() { 
+  //   this.currentNote.subscribe(
+  //     note => {
+  //       this.noteForm.patchValue({
+  //         body: note[0].body,
+  //         title: note[0].title,
+  //         id: note[0].id,
+  //         priority: note[0].priority
+  //       })
+  //     }
+  //   )
+  // }
+
+  getForm(){
+    return this.noteForm;
+  }
+
+
+  onSubmit() {
+    this.submitted = true;
+    console.log(this.noteForm.value)
+
+    // if(this.isAddMode$) {
+    //   this.createNewNote()
+    // }else {
+    //   console.log('here')
+    // }
+
+
+    // Rajouter les fontions pour la création et la modification
+
+    this.isAddMode$.subscribe(
+      mode => {
+        if(mode) {
+          this.createNewNote();
+        }else {
+          //this.updateNote();
+        }
+      }
+    )
+
+      
+ 
+    //this.noteForm.reset();
+
   }
 
   // https://jasonwatmore.com/post/2020/09/02/angular-combined-add-edit-create-update-form-example

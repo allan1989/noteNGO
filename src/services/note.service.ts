@@ -5,8 +5,10 @@ import {
   hideRemoveNoteModal, 
   removeNote, 
   addNote, 
+  updateNote,
   showAddEditNoteModal,
-  showAddEditNoteToast 
+  showAddEditNoteToast, 
+  getNoteId
 } from 'src/app/reducers/actions/actions';
 import { Store } from '@ngrx/store';
 import { State } from '../app/reducers/index';
@@ -88,11 +90,14 @@ export class NoteService {
     this.hideDeleteNoteModal();
   }
 
-  showAddEditModalForUpdating() {
+  showAddEditModalForUpdating(id: number) {
     this.store.dispatch(showAddEditNoteModal({
       showAddEditNoteModal: true,
       isAddMode: false
-    }))
+    }));
+    this.store.dispatch(getNoteId(
+      {selectedNoteId: id}
+    ))
   }
 
   showAddEditModalForCreating() {
@@ -104,6 +109,16 @@ export class NoteService {
 
   addNote(obj:INote) {
     this.store.dispatch(addNote({note: obj}));
+    this.store.dispatch(showAddEditNoteModal({
+      showAddEditNoteModal: false,
+      isAddMode: false
+    }));
+    this.store.dispatch(showAddEditNoteToast());
+    setTimeout(() => this.store.dispatch(hideAddEditNoteToast()), 5000);
+  }
+
+  updateNote(notesArr: INote[]) {
+    this.store.dispatch(updateNote({notes: notesArr}));
     this.store.dispatch(showAddEditNoteModal({
       showAddEditNoteModal: false,
       isAddMode: false

@@ -3,7 +3,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from 'src/components/header/header.component';
 import { HomeModule } from 'src/components/home/home.module';
-import { ModalRemoveNoteComponent } from '../components/modal-remove-note/modal-remove-note.component';
 import { StoreModule, ActionReducer, MetaReducer } from '@ngrx/store';
 import { notesReducer } from './reducers';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
@@ -27,8 +26,7 @@ export const metaReducers: MetaReducer<any>[] = [debug];
 @NgModule({
   declarations: [
     AppComponent,
-    HeaderComponent,
-    ModalRemoveNoteComponent
+    HeaderComponent
   ],
   imports: [
     BrowserModule,

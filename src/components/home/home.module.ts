@@ -7,6 +7,7 @@ import { NoteFullComponent } from 'src/components/note-full/note-full.component'
 import { NotFoundComponent } from 'src/components/not-found/not-found.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { ModalAddEditNoteComponent } from '../modal-add-edit-note/modal-add-edit-note.component';
+import { ModalRemoveNoteComponent } from '../modal-remove-note/modal-remove-note.component';
 import { ToastComponent } from '../toast/toast.component';
 import { ReactiveFormsModule } from '@angular/forms';
 
@@ -17,6 +18,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     NoteFullComponent,
     NotFoundComponent,
     ModalAddEditNoteComponent,
+    ModalRemoveNoteComponent,
     ToastComponent
   ],
   imports: [RouterModule, BrowserModule, ReactiveFormsModule],

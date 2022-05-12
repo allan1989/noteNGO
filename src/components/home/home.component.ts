@@ -5,7 +5,7 @@ import { Store, select } from '@ngrx/store';
 import { checkLocalStorage, showAddEditNoteModal } from 'src/app/reducers/actions/actions';
 import { Observable } from 'rxjs';
 import { INote } from 'src/services/note.model';
-import { selectNotes } from 'src/app/reducers/selectors/selectors';
+import { selectNotes, removeNoteModal } from 'src/app/reducers/selectors/selectors';
 
 @Component({
   selector: 'app-home',
@@ -26,6 +26,7 @@ export class HomeComponent implements OnInit {
     {level: 'Basse', routeName: 'basse'}
   ]
   public hasNotes$: Observable<INote[]>;
+  public showRemoveNoteModal$: Observable<boolean>;
 
   ngOnInit(): void {
     
@@ -34,11 +35,8 @@ export class HomeComponent implements OnInit {
     this.noteService.checkIfLocalStorageExists();
 
     this.hasNotes$ = this.store.pipe(select(selectNotes));
-    /*
-    if(this.noteService.getState().canUseLocalStorage) {
-      this.noteService.loadFakeJSON();
-    }
-    */
+    
+    this.showRemoveNoteModal$ = this.store.pipe(select(removeNoteModal))
   }
 
   showAddEditForm() {

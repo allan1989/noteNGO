@@ -27,6 +27,11 @@ export const removeNote = createAction(
   props<{ selectedNoteId: number}>() 
 );
 
+export const getNoteId = createAction(
+  '[ NOTES ] GET NOTE ID',
+  props<{ selectedNoteId: number}>() 
+);
+
 export const removeNoteSuccess = createAction(
   '[ NOTES ] Remove Note Success' 
 );
@@ -44,6 +49,11 @@ export const hideRemoveNoteModal = createAction(
 export const addNote = createAction(
   '[ ADD NOTE ]',
   props<{ note: INote }>()
+)
+
+export const updateNote = createAction(
+  '[ UPDATE NOTE ]',
+  props<{ notes: INote[] }>()
 )
 
 export const showAddEditNoteModal = createAction(

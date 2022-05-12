@@ -17,6 +17,7 @@ export class ModalRemoveNoteComponent implements OnInit {
 
   ngOnInit(): void {
     this.selectedNote$ = this.store.pipe(select(selectSingleNoteForModal));
+    console.log()
   }
 
   hideDeleteNoteModal() {
@@ -24,6 +25,7 @@ export class ModalRemoveNoteComponent implements OnInit {
   }
 
   deleteNote(id:number) {
+    // get reference to form noteForm and reset form
     this.noteService.deleteNote(id);
   }
 

@@ -46,7 +46,7 @@ export class NotePreviewComponent implements OnInit, OnDestroy {
     this.sub.unsubscribe()
   }
 
-  showAddEditModal() {
-    this.noteService.showAddEditModalForUpdating();
+  showAddEditModal(id: number) {
+    this.noteService.showAddEditModalForUpdating(id);
   }
 }

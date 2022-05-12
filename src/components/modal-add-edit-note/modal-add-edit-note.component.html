@@ -3,7 +3,7 @@
       class="fixed-top modal-fullscreen bg-secondary bg-opacity-25">
     <div class="position-absolute top-50 start-50 translate-middle bg-white p-4 rounded-3">
       <ng-container>
-        <form [formGroup]="noteForm" (ngSubmit)="onSubmit()">
+        <form #noteform [formGroup]="noteForm" (ngSubmit)="onSubmit()">
           <p *ngIf="(isAddMode$ | async)">Add Mode</p>
           <p *ngIf="!(isAddMode$ | async)">Edit Mode</p>
           <div class="form-group">
@@ -17,6 +17,7 @@
               placeholder="Titre..."/>
             <div *ngIf="submitted && noteForm.controls.title.errors?.required" class="text-danger">Il faut ajouter un titre</div>
             <div *ngIf="submitted && noteForm.controls.title.errors?.minlength" class="text-danger">Le titre est top court</div>
+            <div *ngIf="submitted && noteForm.controls.title.errors?.noSpaceAllowed" class="text-danger">Le titre est vide</div>
           </div>
           <div class="form-group">
             <label for="priority">Contenu :</label>

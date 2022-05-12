@@ -16,7 +16,7 @@ export const selectNotes = createSelector(
 );
 
 // show or hide remove note modal
-// return an id
+// return an boolean
 export const removeNoteModal = createSelector(
   selectNotesFeature,
   (state: State) => state.showRemoveNoteModal
@@ -74,4 +74,10 @@ export const AddEditNoteModalMode = createSelector(
 export const showAddEditNoteToast = createSelector(
   selectNotesFeature,
   (notes) => notes.showAddEditNoteToast
+)
+
+// get id when editing a note
+export const getSelectedNoteId = createSelector(
+  selectNotesFeature,
+  (notes) => notes.selectedNoteId
 )
