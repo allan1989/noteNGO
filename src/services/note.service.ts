@@ -111,7 +111,7 @@ export class NoteService {
     this.store.dispatch(addNote({note: obj}));
     this.store.dispatch(showAddEditNoteModal({
       showAddEditNoteModal: false,
-      isAddMode: false
+      isAddMode: true
     }));
     this.store.dispatch(showAddEditNoteToast());
     setTimeout(() => this.store.dispatch(hideAddEditNoteToast()), 5000);
