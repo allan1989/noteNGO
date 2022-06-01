@@ -10,7 +10,7 @@ import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { INote } from 'src/services/note.model';
 import { showAddEditNoteModal } from 'src/app/reducers/actions/actions';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { NoteService } from 'src/services/note.service';
 
 @Component({
@@ -44,8 +44,8 @@ export class ModalAddEditNoteComponent implements OnInit {
       this.currentNote = this.store.pipe(select(selectSingleNoteForModal))
 
       this.noteForm = this.formBuilder.group({
-        title: ['', [Validators.required, Validators.minLength(3)]],
-        body: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(250)]],
+        title: ['', [Validators.required, this.noWhitespaceValidator]],
+        body: ['', [Validators.required, this.noWhitespaceValidator]],
         priority: ['', [Validators.required]]
       })
 
@@ -59,6 +59,12 @@ export class ModalAddEditNoteComponent implements OnInit {
           }
         }
       )
+  }
+
+  public noWhitespaceValidator(control: FormControl) {
+    const isWhitespace = (control.value || '').trim().length === 0;
+    const isValid = !isWhitespace;
+    return isValid ? null : { 'whitespace': true };
   }
 
   hideModal() {
@@ -131,9 +137,5 @@ export class ModalAddEditNoteComponent implements OnInit {
         }
       }
     )
-
   }
-
-  // https://jasonwatmore.com/post/2020/09/02/angular-combined-add-edit-create-update-form-example
-
 }

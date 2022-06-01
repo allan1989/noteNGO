@@ -8,7 +8,7 @@
       <div 
       [ngClass]="{'bg-info': note.id === this.selected}"
       class="p-2 border d-flex justify-content-between mb-1">
-        <a [routerLink]="[note.id]"  
+        <a [routerLink]="[note.id]" style="width: 85%"  
            (click)="handleSelectedNote(note)"     
             class="text-decoration-none text-dark">
           <p class="mb-1 overflow-hidden" style="height: 22px;">
